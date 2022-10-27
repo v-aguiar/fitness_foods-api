@@ -8,7 +8,7 @@ const app = express();
 app
   .use(cors())
   .use(express.json())
-  .get("/", (_req, res) => res.send("OK!"));
+  .get("/", (_req, res) => res.status(200).send("OK!"));
 
 export function init(): Promise<Express> {
   connectDb();
