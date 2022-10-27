@@ -1,7 +1,0 @@
-terminal:
-  image: node:10-alpine
-  before_script:
-    - apt-get update
-  script: sleep 60
-  variables:
-    NODE_ENV: "development"
