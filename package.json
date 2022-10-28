@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "ttsc --project tsconfig.json",
-    "test": "jest --detectOpenHandles --verbose",
+    "test": "jest --detectOpenHandles --verbose --runInband --ci --passWithNoTests",
     "test:db-push": "prisma db push && npm test",
     "test:docker": "npm run test:compose -- up",
     "test:compose": "docker-compose -f docker-compose.test.yml",
