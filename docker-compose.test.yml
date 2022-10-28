@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  mblabs-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: mblabs-test
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongo_db
+    working_dir: /usr/src
+    environment:
+      NODE_ENV: test
+      PORT: 4000
+      DATABASE_URL: mongodb://mongo_db:27017/mblabs-test
+      DB_NAME: mblabs-test
+    command: "npm run test:db-push"
+
+volumes:
+  mongo_db: {}
