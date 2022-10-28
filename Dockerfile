@@ -2,8 +2,8 @@
 
 FROM node:18.12.0-alpine as build
 WORKDIR /usr/src
-COPY ./package*.json .
-COPY ./tsconfig*.json .
+COPY ./package*.json ./
+COPY ./tsconfig*.json ./
 COPY ./prisma ./prisma
 RUN npm ci
 COPY . .
