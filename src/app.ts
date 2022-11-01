@@ -3,12 +3,16 @@ import express, { Express } from "express";
 import cors from "cors";
 
 import { connectDb, disconnectDB } from "@/config";
+import { errorHandlerMiddleware } from "@/middlewares";
+import { productsRouter } from "@/routers";
 
 const app = express();
 app
   .use(cors())
   .use(express.json())
-  .get("/", (_req, res) => res.status(200).send("OK!"));
+  .get("/", (_req, res) => res.status(200).send("OK!"))
+  .use("/products", productsRouter)
+  .use(errorHandlerMiddleware);
 
 export function init(): Promise<Express> {
   connectDb();
