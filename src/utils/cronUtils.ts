@@ -4,10 +4,10 @@ import * as stream from "stream";
 import { createReadStream, createWriteStream, unlinkSync } from "fs";
 import { readFile, unlink, writeFile } from "fs/promises";
 import { promisify } from "util";
+import { createUnzip } from "zlib";
 
 import { InsertProducts, productsRepository } from "@/repositories";
 import { normalizeProduct } from ".";
-import { createUnzip } from "zlib";
 
 const _ROOT = path.resolve(__dirname, "..", "..");
 

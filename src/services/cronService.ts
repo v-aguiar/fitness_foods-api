@@ -1,11 +1,12 @@
 import axios from "axios";
 import path from "path";
 import { downloadFile, upsertProductData } from "@/utils";
+import { cronRepository } from "@/repositories";
 
 const _ROOT = path.resolve(__dirname, "..", "..");
 
 export const cronService = {
-  get: async () => {
+  runCronJob: async () => {
     const { data }: { data: string } = await axios.get(
       "https://challenges.coode.sh/food/data/json/index.txt",
       {
@@ -36,5 +37,10 @@ export const cronService = {
     }, 3000);
 
     //TODO -> refactor after adding error handler middleware
+  },
+
+  saveCronJobLog: async (error?: any) => {
+    const description: string = error ? error.toString() : "✔ Cron job executed successfully!";
+    await cronRepository.saveCronJobLog(description);
   },
 };
