@@ -34,4 +34,10 @@ export const productsRepository = {
       data,
     });
   },
+
+  deleteByCode: async (code: string) => {
+    await prisma.product.delete({
+      where: { code },
+    });
+  },
 };
