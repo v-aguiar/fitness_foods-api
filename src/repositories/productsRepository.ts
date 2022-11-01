@@ -36,8 +36,9 @@ export const productsRepository = {
   },
 
   deleteByCode: async (code: string) => {
-    await prisma.product.delete({
+    await prisma.product.update({
       where: { code },
+      data: { status: "trash" },
     });
   },
 };
