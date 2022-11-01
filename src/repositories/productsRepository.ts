@@ -1,20 +1,23 @@
 import { Product } from "@prisma/client";
 import { prisma } from "@/config";
+import { close, init } from "@/app";
 
-export type InsertProducts = Omit<Product, "id" | "imported_t" | "updated_at">;
+export type InsertProducts = Omit<Product, "id" | "imported_t" | "updated_at" | "status">;
 
 export const productsRepository = {
-  insertOrUpdate: async (product: InsertProducts) => {
-    await prisma.product.upsert({
-      where: {
-        product_name: product.product_name,
-      },
-      update: {
-        ...product,
-      },
-      create: {
-        ...product,
-      },
-    });
+  insertOrUpdateMany: async (products: InsertProducts[]) => {
+    await init();
+
+    await prisma.$transaction(
+      products.map((product) => {
+        return prisma.product.upsert({
+          where: { code: product.code },
+          update: { ...product },
+          create: { ...product },
+        });
+      })
+    );
+    await close();
+    return;
   },
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import path from "path";
-import { downloadFile } from "@/utils";
+import { downloadFile, upsertProductData } from "@/utils";
 
 const _ROOT = path.resolve(__dirname, "..", "..");
 
@@ -14,8 +14,27 @@ export const cronService = {
     );
 
     const fileNames: string[] = data.split("\n");
-    const filePath = path.resolve(_ROOT, "temp", fileNames[0]);
+    fileNames.pop();
 
-    await downloadFile(`https://challenges.coode.sh/food/data/json/${fileNames[0]}`, filePath);
+    for (const fileName of fileNames) {
+      const filePath = path.resolve(_ROOT, "temp", fileName);
+      try {
+        await downloadFile(`https://challenges.coode.sh/food/data/json/${fileName}`, filePath, fileName);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    setTimeout(async () => {
+      for (const fileName of fileNames) {
+        try {
+          await upsertProductData(fileName);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }, 3000);
+
+    //TODO -> refactor after adding error handler middleware
   },
 };

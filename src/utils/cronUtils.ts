@@ -1,42 +1,70 @@
 import path from "path";
 import got from "got";
 import * as stream from "stream";
-import { createReadStream, createWriteStream, readFileSync, unlink, unlinkSync } from "fs";
-import { writeFile } from "fs/promises";
+import { createReadStream, createWriteStream, unlinkSync } from "fs";
+import { readFile, unlink, writeFile } from "fs/promises";
 import { promisify } from "util";
-import { ungzip } from "node-gzip";
 
 import { InsertProducts, productsRepository } from "@/repositories";
+import { normalizeProduct } from ".";
+import { createUnzip } from "zlib";
 
 const _ROOT = path.resolve(__dirname, "..", "..");
 
-export const downloadFile = async (url: string, filePath: string) => {
+export const downloadFile = async (url: string, filePath: string, fileName: string) => {
   const pipeline = promisify(stream.pipeline);
-
   await pipeline(got.stream(url), createWriteStream(filePath));
 
-  const file = readFileSync(filePath);
-  const unzipped = await ungzip(file);
-  await writeFile(path.resolve(_ROOT, "temp", "unzipped.json"), unzipped);
-  readJsonFile(path.resolve(_ROOT, "temp", "unzipped.json"));
-  unlinkSync(filePath);
+  let bufferString = "";
+  let newLineIndex;
+  let count = 0;
+
+  const file = await readFile(filePath);
+  const unzipTool = createUnzip();
+  unzipTool.setEncoding("utf8");
+  unzipTool.write(file);
+
+  const handleIncomingData = (data: Buffer) => {
+    bufferString += data.toString();
+    if ((newLineIndex = bufferString.indexOf("\n")) >= 0) count++;
+    if (count === 40) unzipTool.emit("end");
+  };
+
+  unzipTool.on("data", (data) => handleIncomingData(data));
+  unzipTool.on("end", async () => {
+    unzipTool.off("data", () => {});
+    unzipTool.destroy();
+    fileName = fileName.trim().replace(".gz", "");
+    await writeFile(path.resolve(_ROOT, "temp", fileName), bufferString);
+    bufferString = "";
+    count = 0;
+    unlink(filePath);
+  });
 };
 
-export const readJsonFile = (filePath: string) => {
-  let stream = createReadStream(filePath, { flags: "r", encoding: "utf-8" });
+export const upsertProductData = async (fileName: string) => {
+  fileName = fileName.trim().replace(".gz", "");
+  const filePath = path.resolve(_ROOT, "temp", fileName);
+
+  const stream = createReadStream(filePath, { flags: "r", encoding: "utf-8" });
   let bufferString = "";
   let counter = 0;
+  const productsArray: InsertProducts[] = [];
 
-  stream.on("data", (data) => {
+  stream.on("data", async (data) => {
     bufferString += data.toString();
-    handleBufferStreamData();
+    await handleBufferStreamData();
   });
 
-  stream.on("end", () => {
+  stream.on("end", async () => {
+    stream.destroy();
+    counter = 0;
+    bufferString = "";
+    await productsRepository.insertOrUpdateMany(productsArray);
     unlinkSync(filePath);
   });
 
-  function handleBufferStreamData() {
+  async function handleBufferStreamData() {
     let newLineIndex;
 
     while ((newLineIndex = bufferString.indexOf("\n")) >= 0 && counter < 100) {
@@ -45,24 +73,28 @@ export const readJsonFile = (filePath: string) => {
         continue;
       }
       const line = bufferString.slice(0, newLineIndex);
-      handleLineString(line);
+      const lineObject = await getObjectFromLineString(line);
+
+      productsArray.push(lineObject);
       bufferString = bufferString.slice(newLineIndex + 1);
       counter++;
       if (counter === 100) stream.emit("end");
     }
   }
 
-  async function handleLineString(line: string) {
-    const isLineNotSanitized = line[line.length - 1] == "\r";
-    if (isLineNotSanitized) line = line.substring(0, line.length - 1);
-
+  async function getObjectFromLineString(line: string): Promise<InsertProducts> {
     const lineIsNotEmpty = line.length > 0;
+    line = line.replace(/-/g, "_");
     if (lineIsNotEmpty) {
       const lineObject = JSON.parse(line);
+      const lineObjectWithoutUnderscore = Object.keys(lineObject).reduce((acc: any, key) => {
+        const newKey = key.replace(/^_/, "");
+        acc[newKey] = lineObject[key];
+        return acc;
+      }, {});
 
-      // TODO -> Remove initial underscore from keys
-      // TODO -> Replace hiphens with underscores in keys
-      // TODO -> Insert product data from lineObject into database
+      const normalizedProduct = normalizeProduct(lineObjectWithoutUnderscore);
+      return normalizedProduct;
     }
   }
 };
