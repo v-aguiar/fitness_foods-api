@@ -20,3 +20,11 @@ export const deleteProductByCode = async (req: Request, res: Response) => {
 
   res.status(httpStatus.OK).send("✔ Product deleted successfully!");
 };
+
+export const getProductByCode = async (req: Request, res: Response) => {
+  const { code } = req.params;
+
+  const product = await productsService.getByCode(code);
+
+  res.status(httpStatus.OK).send(product);
+};
