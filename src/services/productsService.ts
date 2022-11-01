@@ -15,4 +15,11 @@ export const productsService = {
 
     await productsRepository.deleteByCode(code);
   },
+
+  getByCode: async (code: string) => {
+    const product = await productsRepository.getByCode(code);
+    if (!product) throw notFoundError("⚠ No product found with the given code!");
+
+    return product;
+  },
 };
