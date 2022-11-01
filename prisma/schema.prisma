@@ -8,7 +8,41 @@ datasource db {
 }
 
 model CronJob {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime @default(now())
+  description String
+}
+
+model Product {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  imported_t       DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  status           Status   @default(published)
+  code             String   @unique
+  url              String   @unique
+  creator          String
+  created_t        String
+  last_modified_t  String
+  product_name     String
+  quantity         String
+  brands           String
+  categories       String
+  labels           String
+  cities           String
+  purchase_places  String
+  stores           String
+  ingredients_text String
+  traces           String
+  serving_size     String
+  serving_quantity String
+  nutriscore_score String
+  nutriscore_grade String
+  main_category    String
+  image_url        String
+}
+
+enum Status {
+  draft
+  published
+  trash
 }
