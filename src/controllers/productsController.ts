@@ -28,3 +28,10 @@ export const getProductByCode = async (req: Request, res: Response) => {
 
   res.status(httpStatus.OK).send(product);
 };
+
+export const getAllProducts = async (req: Request, res: Response) => {
+  const { page = 1 } = req.query;
+  const products = await productsService.getAll(Number(page));
+
+  res.status(httpStatus.OK).send(products);
+};
