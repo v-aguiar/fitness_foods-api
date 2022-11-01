@@ -2,7 +2,7 @@ import app, { init } from "@/app";
 import { cronService } from "@/services";
 import cron from "node-cron";
 
-const port = +process.env.PORT || 4000;
+const port = +process.env.PORT || 8080;
 
 init().then(() => {
   cron.schedule(
