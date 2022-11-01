@@ -2,7 +2,7 @@ import { InsertProducts } from "@/repositories";
 
 export const normalizeProduct = (obj: any): InsertProducts => {
   return {
-    code: obj.code,
+    code: obj.code.replace(/^"/, ""),
     product_name: obj.product_name,
     brands: obj.brands,
     categories: obj.categories,
