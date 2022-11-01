@@ -22,4 +22,11 @@ export const productsService = {
 
     return product;
   },
+
+  getAll: async (page: number) => {
+    const products = await productsRepository.getAll(page);
+    if (products.length === 0) throw notFoundError("⚠ No products found!");
+
+    return products;
+  },
 };

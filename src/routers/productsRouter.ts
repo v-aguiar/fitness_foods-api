@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { deleteProductByCode, updateProductByCode, getProductByCode } from "@/controllers";
+import { deleteProductByCode, updateProductByCode, getProductByCode, getAllProducts } from "@/controllers";
 import { validateBody, validateParams } from "@/middlewares";
 import { updateProductSchema, validateProductCodeSchema } from "@/schemas";
 
@@ -14,4 +14,5 @@ productsRouter
     updateProductByCode
   )
   .delete("/:code", validateParams(validateProductCodeSchema), deleteProductByCode)
-  .get("/:code", validateParams(validateProductCodeSchema), getProductByCode);
+  .get("/:code", validateParams(validateProductCodeSchema), getProductByCode)
+  .get("/", getAllProducts);

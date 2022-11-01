@@ -22,6 +22,14 @@ export const productsRepository = {
     return;
   },
 
+  getAll: async (page: number) => {
+    return await prisma.product.findMany({
+      skip: (page - 1) * 50,
+      take: 50,
+      orderBy: { code: "asc" },
+    });
+  },
+
   getByCode: async (code: string) => {
     return await prisma.product.findUnique({
       where: { code },
