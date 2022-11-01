@@ -12,3 +12,11 @@ export const updateProductByCode = async (req: Request, res: Response) => {
 
   res.status(httpStatus.OK).send("✔ Product updated successfully!");
 };
+
+export const deleteProductByCode = async (req: Request, res: Response) => {
+  const { code } = req.params;
+
+  await productsService.deleteByCode(code);
+
+  res.status(httpStatus.OK).send("✔ Product deleted successfully!");
+};

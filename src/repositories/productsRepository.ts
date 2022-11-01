@@ -34,4 +34,11 @@ export const productsRepository = {
       data,
     });
   },
+
+  deleteByCode: async (code: string) => {
+    await prisma.product.update({
+      where: { code },
+      data: { status: "trash" },
+    });
+  },
 };
