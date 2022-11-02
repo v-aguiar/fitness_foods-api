@@ -8,6 +8,7 @@ COPY ./prisma ./prisma
 RUN npm ci
 COPY . .
 RUN npm run build
+RUN npm run prod:db-push
 
 # run step
 
@@ -17,3 +18,4 @@ COPY ./package*.json ./
 COPY ./prisma ./prisma
 RUN npm ci
 COPY --from=build /usr/src/dist ./dist
+CMD ["npm", "start"]
