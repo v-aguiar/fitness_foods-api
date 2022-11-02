@@ -1,6 +1,6 @@
 import { cronRepository } from "@/repositories";
 
-interface Health {
+export interface Health {
   date: string;
   uptime: string;
   memory_usage: string;
