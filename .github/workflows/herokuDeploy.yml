@@ -1,0 +1,21 @@
+name: Heroku Deploy on Push
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  HerokuDeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo code
+        uses: actions/checkout@v3
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "mb-labs-api"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          branch: "main"
+        env:
+          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
