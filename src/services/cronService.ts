@@ -19,24 +19,14 @@ export const cronService = {
 
     for (const fileName of fileNames) {
       const filePath = path.resolve(_ROOT, "temp", fileName);
-      try {
-        await downloadFile(`https://challenges.coode.sh/food/data/json/${fileName}`, filePath, fileName);
-      } catch (error) {
-        console.log(error);
-      }
+      await downloadFile(`https://challenges.coode.sh/food/data/json/${fileName}`, filePath, fileName);
     }
 
     setTimeout(async () => {
       for (const fileName of fileNames) {
-        try {
-          await upsertProductData(fileName);
-        } catch (error) {
-          console.log(error);
-        }
+        await upsertProductData(fileName);
       }
     }, 3000);
-
-    //TODO -> refactor after adding error handler middleware
   },
 
   saveCronJobLog: async (error?: any) => {
