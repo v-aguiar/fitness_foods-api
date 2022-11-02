@@ -15,8 +15,8 @@
 
 - [Sobre](#about)
 - [Instalação e configuração](#getting_started)
-- [Deploy](#deployment)
 - [Como usar (endpoints)](#usage)
+- [Deploy](#deployment)
 - [Ferramentas Utilizadas](#built_using)
 - [Desenvolvido por:](#authors)
 
