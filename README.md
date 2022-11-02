@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://github.com/v-aguiar/mb_labs-api/tree/main/assets/api-icon.png" alt="Project logo"></a>
+ <img width=200px height=200px src="https://raw.githubusercontent.com/v-aguiar/mb_labs-api/main/assets/api-icon.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">mblabs-api</h3>
