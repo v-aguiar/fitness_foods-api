@@ -3,7 +3,7 @@ import express, { Express } from "express";
 import cors from "cors";
 
 import { connectDb, disconnectDB } from "@/config";
-import { healthCheck } from "@/controllers";
+import { healthCheck, runCronJob } from "@/controllers";
 import { errorHandlerMiddleware } from "@/middlewares";
 import { productsRouter } from "@/routers";
 
@@ -13,6 +13,7 @@ app
   .use(express.json())
   .get("/status", (_req, res) => res.status(200).send("OK!"))
   .get("/", healthCheck)
+  .post("/cron", runCronJob)
   .use("/products", productsRouter)
   .use(errorHandlerMiddleware);
 
