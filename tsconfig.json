@@ -14,11 +14,14 @@
     },
     "plugins": [
       {
+        "transform": "typescript-transform-paths"
+      },
+      {
         "transform": "typescript-transform-paths",
         "afterDeclarations": true
       }
     ]
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "dist"],
   "exclude": ["node_modules"]
 }
