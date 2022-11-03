@@ -78,11 +78,9 @@ NODE_ENV=development
 
 - Após configurar as variáveis de ambiente, você pode iniciar o servidor da API e começar a fazer requisições (veja [Como usar](#usage) para mais informações sobre os endpoints e entender como cada um deles funciona):
 
-````bash
-
 ```bash
 npm run dev
-````
+```
 
 ### Cron Job Personalizado (opcional)
 
