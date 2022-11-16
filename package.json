@@ -1,8 +1,8 @@
 {
-  "name": "mblabs-api",
+  "name": "fitness_foods-api",
   "version": "1.0.0",
-  "description": "## Introdução",
-  "main": "index.js",
+  "description": "Revisar de maneira rápida a informação nutricional dos alimentos que os usuários publicam.",
+  "main": "./dist/src/server.js",
   "scripts": {
     "build": "ttsc --project tsconfig.json",
     "test": "jest --detectOpenHandles --verbose --runInBand --ci --passWithNoTests",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:v-aguiar/mb_labs-api.git"
+    "url": "git@github.com:v-aguiar/fitness_foods-api.git"
   },
   "keywords": [
     "Node",
