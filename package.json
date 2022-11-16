@@ -1,8 +1,8 @@
 {
-  "name": "mblabs-api",
+  "name": "fitness_foods-api",
   "version": "1.0.0",
-  "description": "## Introdução",
-  "main": "index.js",
+  "description": "Revisar de maneira rápida a informação nutricional dos alimentos que os usuários publicam.",
+  "main": "./dist/src/server.js",
   "scripts": {
     "build": "ttsc --project tsconfig.json",
     "test": "jest --detectOpenHandles --verbose --runInBand --ci --passWithNoTests",
@@ -10,7 +10,7 @@
     "test:docker": "npm run test:compose -- up",
     "test:compose": "docker-compose -f docker-compose.test.yml",
     "ci:build": "docker-compose -f docker-compose.test.yml build",
-    "ci:test": "docker-compose -f docker-compose.test.yml run mblabs-test",
+    "ci:test": "docker-compose -f docker-compose.test.yml run fitness_foods-test",
     "prod:docker": "docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml up",
     "prod:db-push": "prisma db push",
     "start": "node ./dist/src/server.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:v-aguiar/mb_labs-api.git"
+    "url": "git@github.com:v-aguiar/fitness_foods-api.git"
   },
   "keywords": [
     "Node",

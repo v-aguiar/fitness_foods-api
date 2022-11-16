@@ -1,9 +1,9 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://raw.githubusercontent.com/v-aguiar/mb_labs-api/main/assets/api-icon.png" alt="Project logo"></a>
+ <img width=200px height=200px src="https://raw.githubusercontent.com/v-aguiar/fitness_foods-api/main/assets/api-icon.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">mblabs-api</h3>
+<h3 align="center">Fitness Foods API</h3>
 
 ---
 
@@ -24,13 +24,12 @@
 
 Este projeto tem como objetivo dar suporte a equipe de nutricionistas da empresa Fitness Foods LC para que eles possam revisar de maneira rápida a informação nutricional dos alimentos que os usuários publicam pela aplicação móvel. (Toda a informação nutricional é disponibilizada pela API da Open Foods)
 <br>
-Este projeto foi desenvolvido como um desafio técnico para a empresa MB Labs, intermediado pela Coodesh (<a href="https://lab.coodesh.com/v-aguiar/nodejs-20201030">NodeJs Challenge 20201030</a>)
 
 ## Instalação e configuração <a id = "getting_started"></a>
 
 Estas instruções de instalção e configuração irão explicar como obter uma cópia deste projeto e fazê-lo rodar na sua máquina local.
 <br>
-<strong>Esses passos não são necessários caso você queira apenas utilizar a API, para isso basta acessar o link: <a href="https://mb-labs-api.herokuapp.com/">https://mb-labs-api.herokuapp.com/</a>
+<strong>Esses passos não são necessários caso você queira apenas utilizar a API, para isso basta acessar o link: <a href="https://fitness-foods-api.herokuapp.com/">https://fitness-foods-api.herokuapp.com/</a>
 </strong>
 <br>
 <br>
@@ -52,14 +51,14 @@ Para instalar este projeto, siga os seguintes passos:
 - Pelo terminal, clone o repositório em uma pasta de sua preferência (aqui será utilizado o protocolo [SSH](https://docs.github.com/pt/github/authenticating-to-github/connecting-to-github-with-ssh), mas você pode utilizar o protocolo HTTPS caso deseje):
 
 ```bash
-git clone git@github.com:v-aguiar/mb_labs-api.git
+git clone git@github.com:v-aguiar/fitness_foods-api.git
 
 ```
 
 - Entre na paste do projeto e instale as dependências:
 
 ```bash
-cd mb_labs-api
+cd fitness_foods-api
 npm install
 ```
 
@@ -106,7 +105,7 @@ npm run test:docker
 
 ## 🎈 Como usar (endpoints) <a id="usage"></a>
 
-- Para utilizar a API, você pode utilizar o link: <a href="https://mb-labs-api.herokuapp.com/">https://mb-labs-api.herokuapp.com/</a>
+- Para utilizar a API, você pode utilizar o link: <a href="https://fitness-foods-api.herokuapp.com/">https://fitness-foods-api.herokuapp.com/</a>
 - Ou utilizar a url local: <a href="http://localhost:4000/">http://localhost:4000/</a> (caso você tenha seguido os passos de instalação e configuração descritos acima [Instalação e Configuração](#getting_started)).
 
 ### Endpoints
@@ -248,7 +247,7 @@ npm run test:docker
 
 ## 🚀 Deploy <a id = "deployment"></a>
 
-Este projeto está disponível no Heroku, para a acessar a API basta utilizar o seguinte link para acessar os endpoints: <a href="https://mb-labs-api.herokuapp.com/">https://mb-labs-api.herokuapp.com/</a>
+Este projeto está disponível no Heroku, para a acessar a API basta utilizar o seguinte link para acessar os endpoints: <a href="https://fitness-foods-api.herokuapp.com/">https://fitness-foods-api.herokuapp.com/</a>
 
 ## ⛏️ Ferramentas Utilizadas <a id = "built_using"></a>
 
